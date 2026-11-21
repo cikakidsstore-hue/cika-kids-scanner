@@ -646,16 +646,99 @@ function parseQR(value) {
 // 4. MENJALANKAN KAMERA HP
 // ======================================
 
-async function startCamera() {
 
+async function startCamera() {
   stopCamera();
 
-  if(!window.ZXingBrowser) {
+  const status = document.getElementById('cameraStatus');
+  const video = document.getElementById('video');
+  const placeholder = document.getElementById('cameraPlaceholder');
 
-    alert('Library scanner belum termuat. Periksa koneksi internet.');
+  // Pastikan browser mendukung kamera
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    status.textContent = 'Browser tidak mendukung akses kamera.';
+    alert('Browser tidak mendukung kamera. Buka aplikasi menggunakan Google Chrome.');
     return;
-
   }
+
+  // Pastikan library scanner berhasil dimuat
+  if (!window.ZXingBrowser) {
+    status.textContent = 'Library scanner belum termuat.';
+    alert('Scanner belum termuat. Periksa koneksi internet lalu refresh halaman.');
+    return;
+  }
+
+  try {
+    status.textContent = 'Meminta izin kamera...';
+
+    // Meminta kamera belakang HP
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: { ideal: 'environment' }
+      },
+      audio: false
+    });
+
+    video.srcObject = stream;
+    video.setAttribute('playsinline', true);
+    video.muted = true;
+
+    await video.play();
+
+    placeholder.style.display = 'none';
+    status.textContent = 'Kamera aktif. Arahkan barcode ke kamera.';
+
+    // Cari kamera belakang yang tersedia
+    const devices =
+      await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
+
+    const backCamera =
+      devices.find(d => /back|rear|environment/i.test(d.label));
+
+    reader = new ZXingBrowser.BrowserMultiFormatReader();
+
+    // Gunakan kamera belakang jika ditemukan
+    const deviceId = backCamera ? backCamera.deviceId : undefined;
+
+    controls = await reader.decodeFromVideoDevice(
+      deviceId,
+      video,
+      (result, error) => {
+        if (result) {
+          const value = result.getText();
+          const now = Date.now();
+
+          if (
+            value === lastCode &&
+            now - lastScanTime < 1800
+          ) {
+            return;
+          }
+
+          lastCode = value;
+          lastScanTime = now;
+
+          processScan(value);
+        }
+      }
+    );
+
+    status.textContent = 'Scanner aktif. Silakan scan barcode produk.';
+
+  } catch (error) {
+    console.error('Camera error:', error);
+
+    status.textContent = 'Kamera gagal dibuka: ' + error.message;
+
+    alert(
+      'KAMERA GAGAL DIBUKA\n\n' +
+      error.message +
+      '\n\nPastikan izin kamera Chrome sudah diaktifkan.'
+    );
+
+    stopCamera();
+  }
+}
 
   try {
 
