@@ -4,1213 +4,1600 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#11100e">
-<meta name="description" content="Stock Management Cika Kids Store">
-
-<title>Cika Kids Store - Stock Management</title>
-
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon-192.svg">
-<link rel="apple-touch-icon" href="./icon-192.svg">
-
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Cika Stock">
+<meta name="description" content="Cika Kids Store Stock Management">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Cika Kids Store - Stock Management</title>
 
 <style>
 :root{
-  --gold:#d5ae58;
-  --gold2:#f3d78e;
-  --dark:#11100e;
-  --dark2:#242018;
-  --bg:#f3f4f6;
-  --white:#fff;
-  --green:#16865c;
-  --red:#c74747;
-  --border:#e7e3db;
+  --black:#111111;
+  --black2:#1d1d1d;
+  --gold:#d7b65c;
+  --gold2:#f1d98a;
+  --bg:#f4f5f7;
+  --white:#ffffff;
+  --text:#222;
+  --muted:#777;
+  --green:#16a34a;
+  --red:#dc2626;
+  --blue:#2563eb;
+  --border:#e5e7eb;
+  --shadow:0 5px 20px rgba(0,0,0,.06);
 }
-
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
-  color:#292720;
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
 }
-
 button,input,select{font:inherit}
-
-button{
-  border:0;
-  border-radius:11px;
-  padding:13px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.15s;
+button{cursor:pointer}
+.topbar{
+  background:linear-gradient(135deg,#111,#252525);
+  color:white;
+  padding:20px 16px 22px;
 }
-
-button:active{transform:scale(.98)}
-
-header{
-  background:linear-gradient(135deg,#11100e,#272117);
-  color:var(--gold);
-  padding:24px 15px;
-  text-align:center;
-  border-bottom:3px solid var(--gold);
-}
-
-.logo{
-  width:62px;
-  height:62px;
-  margin:0 auto 10px;
-  display:grid;
-  place-items:center;
-  border:2px solid var(--gold);
-  border-radius:18px;
-  background:#211b12;
-  font-family:Georgia,serif;
-  font-size:28px;
-  font-weight:bold;
-  color:var(--gold2);
-}
-
-header h1{
-  margin:0;
-  font-size:20px;
-  letter-spacing:2px;
-  font-family:Georgia,serif;
-}
-
-header p{
-  margin:7px 0 0;
-  font-size:10px;
-  letter-spacing:3px;
-  color:#c5b58f;
-}
-
-.install{
-  margin-top:15px;
-  background:var(--gold);
-  color:#17130d;
-  padding:12px 20px;
-}
-
-.container{
-  width:100%;
-  max-width:850px;
+.header{
+  max-width:1100px;
   margin:auto;
-  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
-
-.panel{
-  background:white;
-  padding:17px;
-  margin-bottom:14px;
-  border-radius:16px;
-  border:1px solid var(--border);
-  box-shadow:0 3px 12px #00000008;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
-
-.panel h2{
+.brand-logo{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#f4df9b,#b78b29);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#111;
+  font-weight:900;
+  font-size:21px;
+  box-shadow:0 3px 12px #d7b65c40;
+}
+.brand h1{
+  margin:0;
   font-size:17px;
-  margin:0 0 15px;
+  letter-spacing:1px;
 }
-
-.modes{
+.brand small{
+  display:block;
+  color:#d6d6d6;
+  font-size:11px;
+  margin-top:4px;
+}
+.install-btn{
+  border:1px solid var(--gold);
+  background:var(--gold);
+  color:#111;
+  border-radius:10px;
+  padding:10px 12px;
+  font-weight:800;
+  font-size:12px;
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:16px;
+}
+.connection{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:white;
+  padding:12px 14px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  font-size:12px;
+  margin-bottom:14px;
+}
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#f59e0b;
+}
+.dot.online{background:#16a34a}
+.dot.offline{background:#dc2626}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.card{
+  background:white;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.stat-label{
+  font-size:12px;
+  color:var(--muted);
+}
+.stat-value{
+  font-size:27px;
+  font-weight:800;
+  margin-top:9px;
+}
+.stat-icon{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  background:#f7f1df;
+  margin-bottom:10px;
+  font-size:19px;
+}
+.section{
+  margin-top:16px;
+  background:white;
+  border-radius:16px;
+  padding:17px;
+  box-shadow:var(--shadow);
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
+}
+.section-title h2{
+  font-size:16px;
+  margin:0;
+}
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:16px 0;
+}
+.tab{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+  padding:12px 6px;
+  font-size:12px;
+  font-weight:700;
+  color:#444;
+}
+.tab.active{
+  background:var(--black);
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.page{display:none}
+.page.active{display:block}
+.mode-buttons{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
   margin-bottom:15px;
 }
-
-.mode{
-  background:#ece9e2;
-  color:#5b5241;
+.mode-btn{
+  padding:14px 8px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#f4f4f4;
+  font-weight:800;
 }
-
-.mode.active{
-  background:var(--dark);
-  color:var(--gold);
-  outline:2px solid var(--gold);
+.mode-btn.active.in{
+  background:#111;
+  color:#f0d278;
+  border:1px solid #d7b65c;
 }
-
-.stats{
+.mode-btn.active.out{
+  background:#991b1b;
+  color:white;
+  border-color:#991b1b;
+}
+.mode-summary{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
 }
-
-.stat{
-  background:#f6f4ef;
-  padding:14px;
+.summary-box{
+  background:#f7f7f7;
+  padding:13px;
   border-radius:12px;
 }
-
-.stat small{
-  display:block;
+.summary-box small{
   color:#777;
-  font-size:12px;
-}
-
-.stat strong{
   display:block;
-  font-size:26px;
+  font-size:11px;
+}
+.summary-box strong{
+  display:block;
+  font-size:24px;
   margin-top:5px;
 }
-
 .camera-box{
-  background:#080808;
+  position:relative;
+  background:#050505;
   border-radius:14px;
   overflow:hidden;
-  min-height:250px;
-  position:relative;
+  min-height:220px;
   display:flex;
   justify-content:center;
   align-items:center;
 }
-
-video{
+#video{
   width:100%;
-  min-height:250px;
-  max-height:450px;
-  display:block;
+  max-height:420px;
   object-fit:cover;
-  background:#080808;
+  display:none;
 }
-
 .camera-placeholder{
-  position:absolute;
-  color:#e3c777;
-  text-align:center;
-  padding:20px;
-  pointer-events:none;
-}
-
-.camera-placeholder .icon{
-  font-size:48px;
-  margin-bottom:10px;
-}
-
-.camera-placeholder p{
   color:#aaa;
-  font-size:12px;
-  line-height:1.6;
+  text-align:center;
+  padding:25px;
+  font-size:13px;
 }
-
-.camera-buttons{
+.scan-frame{
+  position:absolute;
+  width:72%;
+  height:120px;
+  border:2px solid var(--gold);
+  border-radius:14px;
+  pointer-events:none;
+  display:none;
+  box-shadow:0 0 0 999px #0003;
+}
+.camera-controls{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:12px;
+  margin-top:10px;
 }
-
-.gold{
+.btn{
+  border:0;
+  padding:13px;
+  border-radius:11px;
+  font-weight:800;
+}
+.btn-gold{
   background:var(--gold);
-  color:#17130d;
+  color:#111;
 }
-
-.black{
-  background:#242018;
+.btn-black{
+  background:#111;
   color:white;
 }
-
-.gray{
-  background:#ece9e2;
-  color:#514735;
+.btn-green{
+  background:#16a34a;
+  color:white;
 }
-
-.red{
-  background:#ffe7e4;
-  color:#b53c3c;
+.btn-red{
+  background:#dc2626;
+  color:white;
 }
-
-.full{
-  width:100%;
-  margin-top:13px;
+.btn-light{
+  background:#f1f2f4;
+  color:#222;
+  border:1px solid #e5e7eb;
 }
-
+.btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
 .status{
   margin-top:10px;
   font-size:12px;
-  line-height:1.6;
-  color:#777;
-  overflow-wrap:anywhere;
+  color:#666;
+  min-height:18px;
 }
-
-.status.error{color:#c23b3b}
-.status.success{color:#16865c}
-
+.status.success{color:#15803d}
+.status.error{color:#dc2626}
 .result{
-  display:none;
-  margin-top:12px;
+  background:#ecfdf5;
+  color:#166534;
+  border:1px solid #bbf7d0;
   padding:13px;
   border-radius:12px;
-  background:#f7f2e5;
-  border:1px solid #eadbb8;
+  margin-top:12px;
   font-size:13px;
   line-height:1.7;
-  overflow-wrap:anywhere;
+  display:none;
 }
-
-label{
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.field{margin-bottom:12px}
+.field label{
   display:block;
   font-size:12px;
   font-weight:700;
-  margin:13px 0 6px;
+  margin-bottom:7px;
 }
-
-input{
+.field input,.field select{
   width:100%;
-  padding:13px;
-  border:1px solid #ddd8ce;
-  border-radius:10px;
-  outline:none;
+  border:1px solid #ddd;
+  border-radius:11px;
+  padding:12px;
   background:white;
-  font-size:14px;
+  outline:none;
 }
-
-input:focus{
+.field input:focus,.field select:focus{
   border-color:var(--gold);
-  box-shadow:0 0 0 3px #d5ae5820;
+  box-shadow:0 0 0 3px #d7b65c20;
 }
-
-.toolbar{
-  display:flex;
-  gap:8px;
-  margin-bottom:12px;
+.full{grid-column:1/-1}
+.table-wrap{
+  overflow:auto;
+  width:100%;
 }
-
-.toolbar button{flex:1}
-
-.table-wrap{overflow-x:auto}
-
 table{
   border-collapse:collapse;
   width:100%;
-  min-width:560px;
-}
-
-th,td{
-  border-bottom:1px solid #eee;
-  padding:10px 8px;
-  text-align:left;
+  min-width:600px;
   font-size:12px;
 }
-
-th{
-  background:#f7f5f0;
-  color:#786544;
+th,td{
+  padding:11px 9px;
+  text-align:left;
+  border-bottom:1px solid #eee;
 }
-
+th{
+  background:#f8f8f8;
+  font-size:11px;
+  color:#666;
+  white-space:nowrap;
+}
+.stock-number{
+  font-weight:800;
+}
 .badge{
   display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
+  border-radius:30px;
+  padding:4px 8px;
   font-size:10px;
-  font-weight:bold;
+  font-weight:800;
 }
-
 .badge-in{
-  background:#dcf5e9;
-  color:#16865c;
+  background:#dcfce7;
+  color:#166534;
 }
-
 .badge-out{
-  background:#ffe5e1;
-  color:#bd4141;
+  background:#fee2e2;
+  color:#991b1b;
 }
-
-.delete{
-  background:#ffe8e5;
-  color:#aa3434;
-  padding:7px;
-  font-size:10px;
-}
-
-.empty{
-  text-align:center;
-  color:#999;
-  padding:25px;
-}
-
-.notice{
-  background:#faf5e9;
-  color:#8c7950;
+.search{
+  width:100%;
   padding:12px;
-  border-radius:10px;
-  font-size:11px;
-  line-height:1.7;
-  margin-top:12px;
+  border:1px solid #ddd;
+  border-radius:11px;
+  margin-bottom:12px;
 }
-
-footer{
+.empty{
+  padding:25px;
   text-align:center;
-  padding:22px;
-  color:#999;
-  font-size:11px;
+  color:#888;
+  font-size:13px;
 }
-
-@media(max-width:500px){
-  .container{padding:10px}
-  .panel{padding:14px}
-  header h1{font-size:18px}
+.refresh-btn{
+  background:#f2f2f2;
+  border:0;
+  border-radius:9px;
+  padding:9px 11px;
+  font-size:12px;
+  font-weight:700;
+}
+.footer{
+  text-align:center;
+  color:#888;
+  font-size:11px;
+  padding:25px 10px 40px;
+}
+.hidden{display:none!important}
+@media(max-width:700px){
+  .cards{grid-template-columns:1fr 1fr}
+  .container{padding:12px}
+  .card{padding:13px}
+  .stat-value{font-size:23px}
+  .section{padding:14px}
+  .tabs{grid-template-columns:1fr 1fr}
+  .brand h1{font-size:15px}
+  .install-btn{padding:9px;font-size:10px}
+}
+@media(min-width:701px){
+  .camera-box{min-height:330px}
+  .section{padding:20px}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">CK</div>
-  <h1>CIKA KIDS STORE</h1>
-  <p>STOCK MANAGEMENT SCANNER</p>
-
-  <button class="install" id="installBtn" onclick="installApp()">
-    📲 INSTALL APLIKASI DI HP
-  </button>
+<header class="topbar">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-logo">CK</div>
+      <div>
+        <h1>CIKA KIDS STORE</h1>
+        <small>STOCK MANAGEMENT SYSTEM</small>
+      </div>
+    </div>
+    <button class="install-btn" id="installBtn" onclick="installApp()">
+      📱 INSTALL APLIKASI
+    </button>
+  </div>
 </header>
 
-<main class="container">
+<div class="container">
 
-  <!-- MODE TRANSAKSI -->
-  <section class="panel">
-    <h2>Mode Transaksi</h2>
-
-    <div class="modes">
-      <button id="btnIn" class="mode active" onclick="setMode('IN')">
-        ↙ BARANG MASUK
-      </button>
-
-      <button id="btnOut" class="mode" onclick="setMode('OUT')">
-        ↗ BARANG KELUAR
-      </button>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <small>Total Barang Masuk</small>
-        <strong id="totalIn">0</strong>
-      </div>
-
-      <div class="stat">
-        <small>Total Barang Keluar</small>
-        <strong id="totalOut">0</strong>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCANNER -->
-  <section class="panel">
-    <h2>Scan Barcode / QR Code</h2>
-
-    <div class="camera-box">
-      <video id="video" autoplay muted playsinline></video>
-
-      <div class="camera-placeholder" id="cameraPlaceholder">
-        <div class="icon">▦</div>
-        <b>KAMERA BELUM AKTIF</b>
-        <p>
-          Tekan BUKA KAMERA untuk memulai scan.
-          <br>
-          Arahkan kamera ke barcode produk.
-        </p>
-      </div>
-    </div>
-
-    <div class="camera-buttons">
-      <button class="gold" id="startBtn" onclick="startCamera()">
-        ◎ BUKA KAMERA
-      </button>
-
-      <button class="black" onclick="stopCamera()">
-        ■ STOP KAMERA
-      </button>
-    </div>
-
-    <div class="status" id="cameraStatus">
-      Kamera belum aktif.
-    </div>
-
-    <div class="result" id="scanResult"></div>
-  </section>
-
-  <!-- INPUT MANUAL -->
-  <section class="panel">
-    <h2>Input Barang Manual</h2>
-
-    <label>SKU / Barcode / QR Code</label>
-    <input id="code" placeholder="Masukkan kode produk">
-
-    <label>Nama Produk</label>
-    <input id="productName" placeholder="Contoh: Kurta BYAN#2 Kids">
-
-    <label>Warna</label>
-    <input id="color" placeholder="Contoh: Hitam">
-
-    <label>Ukuran / Size</label>
-    <input id="size" placeholder="Contoh: M">
-
-    <label>Jumlah Barang</label>
-    <input id="qty" type="number" min="1" step="1" value="1">
-
-    <button class="gold full" onclick="addManual()">
-      TAMBAHKAN TRANSAKSI
+  <!-- CONNECTION -->
+  <div class="connection">
+    <span class="dot" id="connectionDot"></span>
+    <span id="connectionText">Menghubungkan Google Spreadsheet...</span>
+    <button class="refresh-btn" onclick="refreshAll()" style="margin-left:auto">
+      ↻ Refresh
     </button>
-  </section>
-
-  <!-- RIWAYAT -->
-  <section class="panel">
-    <h2>Riwayat Scan</h2>
-
-    <div class="toolbar">
-      <button class="gold" onclick="downloadCSV()">↓ DOWNLOAD CSV</button>
-      <button class="red" onclick="clearHistory()">HAPUS RIWAYAT</button>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Waktu</th>
-            <th>Jenis</th>
-            <th>SKU</th>
-            <th>Produk</th>
-            <th>Varian</th>
-            <th>Qty</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-
-        <tbody id="history"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <div class="notice">
-    Data pada versi ini tersimpan di browser/perangkat yang digunakan.
-    Belum disinkronkan dengan Google Spreadsheet.
   </div>
 
-</main>
+  <!-- DASHBOARD CARDS -->
+  <div class="cards">
+    <div class="card">
+      <div class="stat-icon">📦</div>
+      <div class="stat-label">Jenis Produk</div>
+      <div class="stat-value" id="totalProducts">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-icon">🧮</div>
+      <div class="stat-label">Total Stok</div>
+      <div class="stat-value" id="totalStock">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-icon">📥</div>
+      <div class="stat-label">Barang Masuk</div>
+      <div class="stat-value" id="totalIn">0</div>
+    </div>
+    <div class="card">
+      <div class="stat-icon">📤</div>
+      <div class="stat-label">Barang Keluar</div>
+      <div class="stat-value" id="totalOut">0</div>
+    </div>
+  </div>
 
-<footer>
-  Cika Kids Store · Stock Management System
-</footer>
+  <!-- NAVIGATION -->
+  <div class="tabs">
+    <button class="tab active" onclick="showPage('scan',this)">📷 SCAN</button>
+    <button class="tab" onclick="showPage('stock',this)">📦 STOK</button>
+    <button class="tab" onclick="showPage('history',this)">📋 RIWAYAT</button>
+    <button class="tab" onclick="showPage('manual',this)">✍️ MANUAL</button>
+  </div>
+
+  <!-- ================= SCAN PAGE ================= -->
+  <div class="page active" id="page-scan">
+
+    <div class="section">
+      <div class="section-title">
+        <h2>Mode Transaksi</h2>
+      </div>
+
+      <div class="mode-buttons">
+        <button id="modeIn" class="mode-btn active in" onclick="setMode('IN')">
+          ↙ BARANG MASUK
+        </button>
+        <button id="modeOut" class="mode-btn" onclick="setMode('OUT')">
+          ↗ BARANG KELUAR
+        </button>
+      </div>
+
+      <div class="mode-summary">
+        <div class="summary-box">
+          <small>Total Barang Masuk</small>
+          <strong id="summaryIn">0</strong>
+        </div>
+        <div class="summary-box">
+          <small>Total Barang Keluar</small>
+          <strong id="summaryOut">0</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <h2>Scan Barcode / QR Code</h2>
+      </div>
+
+      <div class="camera-box">
+        <video id="video" autoplay playsinline muted></video>
+        <div class="camera-placeholder" id="cameraPlaceholder">
+          <div style="font-size:40px;margin-bottom:10px">📷</div>
+          Kamera belum aktif<br>
+          Tekan BUKA KAMERA untuk mulai scan
+        </div>
+        <div class="scan-frame" id="scanFrame"></div>
+      </div>
+
+      <div class="camera-controls">
+        <button class="btn btn-green" id="startCameraBtn" onclick="startCamera()">
+          📷 BUKA KAMERA
+        </button>
+        <button class="btn btn-black" id="stopCameraBtn" onclick="stopCamera()">
+          ■ STOP KAMERA
+        </button>
+      </div>
+
+      <div class="status" id="cameraStatus">
+        Kamera dihentikan.
+      </div>
+
+      <div class="result" id="scanResult"></div>
+
+      <div style="font-size:11px;color:#888;margin-top:10px">
+        Gunakan kamera belakang HP. Barcode harus terlihat jelas dan memiliki
+        pencahayaan yang cukup. Scanner memerlukan browser yang mendukung
+        BarcodeDetector (umumnya Chrome Android).
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STOCK PAGE ================= -->
+  <div class="page" id="page-stock">
+
+    <div class="section">
+      <div class="section-title">
+        <h2>Master Stok Barang</h2>
+        <button class="refresh-btn" onclick="loadStock()">↻ Refresh Stok</button>
+      </div>
+
+      <input class="search" id="stockSearch"
+        placeholder="🔍 Cari SKU, produk, warna, ukuran..."
+        oninput="renderStock()">
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Nama Produk</th>
+              <th>Warna</th>
+              <th>Size</th>
+              <th>Stok</th>
+            </tr>
+          </thead>
+          <tbody id="stockTable">
+            <tr><td colspan="5" class="empty">Memuat stok...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HISTORY PAGE ================= -->
+  <div class="page" id="page-history">
+
+    <div class="section">
+      <div class="section-title">
+        <h2>Riwayat Transaksi</h2>
+        <button class="refresh-btn" onclick="loadHistory()">↻ Refresh</button>
+      </div>
+
+      <input class="search" id="historySearch"
+        placeholder="🔍 Cari SKU / produk..."
+        oninput="renderHistory()">
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>SKU</th>
+              <th>Nama Produk</th>
+              <th>Warna</th>
+              <th>Size</th>
+              <th>Jenis</th>
+              <th>Qty</th>
+              <th>Sumber</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable">
+            <tr><td colspan="8" class="empty">Memuat riwayat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MANUAL PAGE ================= -->
+  <div class="page" id="page-manual">
+
+    <div class="section">
+      <div class="section-title">
+        <h2>Input Transaksi Manual</h2>
+      </div>
+
+      <div class="field">
+        <label>Jenis Transaksi</label>
+        <select id="manualType" onchange="setManualMode(this.value)">
+          <option value="IN">BARANG MASUK (+)</option>
+          <option value="OUT">BARANG KELUAR (-)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>SKU / Barcode / QR Code</label>
+        <input id="manualSku" placeholder="Masukkan atau scan kode produk">
+      </div>
+
+      <div class="field">
+        <label>Nama Produk</label>
+        <input id="manualName" placeholder="Contoh: Kurta BYAN#2 Kids">
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Warna</label>
+          <input id="manualColor" placeholder="Hitam">
+        </div>
+        <div class="field">
+          <label>Size</label>
+          <input id="manualSize" placeholder="M / L / XL">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Jumlah (Qty)</label>
+        <input id="manualQty" type="number" min="1" value="1">
+      </div>
+
+      <button class="btn btn-gold" style="width:100%" onclick="submitManual()">
+        💾 SIMPAN TRANSAKSI
+      </button>
+
+      <div class="status" id="manualStatus"></div>
+    </div>
+
+    <div class="section">
+      <div style="font-size:12px;color:#777;line-height:1.7">
+        <b>Petunjuk:</b><br>
+        Barang masuk dapat sekaligus membuat produk baru jika SKU belum
+        terdaftar. Barang keluar hanya dapat dilakukan untuk SKU yang sudah
+        ada di master dan stoknya mencukupi.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    CIKA KIDS STORE • STOCK MANAGEMENT<br>
+    Google Spreadsheet Inventory System
+  </div>
+</div>
 
 <script>
 
-/* ======================================
-   DATA APLIKASI
-====================================== */
+/* ==================================================
+   GOOGLE APPS SCRIPT CONFIGURATION
+================================================== */
 
-const STORAGE_KEY = "CIKA_KIDS_STOCK_SCANNER_V3";
+// WAJIB GANTI URL DI BAWAH INI DENGAN URL WEB APP ANDA
+const GOOGLE_API_URL =
+  "TEMPEL_URL_WEB_APP_ANDA_DI_SINI";
+
+
+/* ==================================================
+   GLOBAL STATE
+================================================== */
 
 let mode = "IN";
-let reader = null;
-let controls = null;
-let records = [];
-
-let lastCode = "";
+let products = [];
+let transactions = [];
+let cameraStream = null;
+let detector = null;
+let scanning = false;
+let scanBusy = false;
+let lastScannedCode = "";
 let lastScanTime = 0;
-let scanLock = false;
-
-let deferredInstallPrompt = null;
-let libraryLoading = null;
+let installPrompt = null;
 
 
-/* LOAD DATA */
+/* ==================================================
+   HELPERS
+================================================== */
 
-try {
-  records = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+function $(id){
+  return document.getElementById(id);
+}
 
-  if(!Array.isArray(records)) records = [];
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-} catch(e) {
-  records = [];
+function numberFormat(value){
+  return Number(value || 0).toLocaleString("id-ID");
+}
+
+function setConnection(online,message){
+  $("connectionDot").className =
+    "dot "+(online?"online":"offline");
+
+  $("connectionText").textContent = message;
+}
+
+function setStatus(message,type=""){
+  const el = $("cameraStatus");
+  el.className = "status "+type;
+  el.textContent = message;
 }
 
 
-/* ======================================
-   LOAD SCANNER LIBRARY
-   CDN 1: JSDelivr
-   CDN 2: Unpkg
-====================================== */
+/* ==================================================
+   GOOGLE JSONP CONNECTION
+================================================== */
 
-function loadZXing(){
+function googleRequest(params){
 
-  if(window.ZXingBrowser) {
-    return Promise.resolve(window.ZXingBrowser);
-  }
+  return new Promise((resolve,reject)=>{
 
-  if(libraryLoading) {
-    return libraryLoading;
-  }
-
-  libraryLoading = new Promise((resolve,reject)=>{
-
-    const urls = [
-      "https://cdn.jsdelivr.net/npm/@zxing/browser@0.2.1/umd/zxing-browser.min.js",
-      "https://unpkg.com/@zxing/browser@0.2.1/umd/zxing-browser.min.js"
-    ];
-
-    let index = 0;
-
-    function tryLoad(){
-
-      if(window.ZXingBrowser){
-        resolve(window.ZXingBrowser);
-        return;
-      }
-
-      if(index >= urls.length){
-        libraryLoading = null;
-        reject(new Error("Semua server scanner gagal dimuat."));
-        return;
-      }
-
-      const script = document.createElement("script");
-
-      script.src = urls[index++];
-      script.async = true;
-
-      script.onload = function(){
-
-        if(window.ZXingBrowser){
-          resolve(window.ZXingBrowser);
-        } else {
-          script.remove();
-          tryLoad();
-        }
-
-      };
-
-      script.onerror = function(){
-        script.remove();
-        tryLoad();
-      };
-
-      document.head.appendChild(script);
-
+    if(
+      !GOOGLE_API_URL ||
+      GOOGLE_API_URL.includes("TEMPEL_URL")
+    ){
+      reject(new Error("URL Google Apps Script belum diisi."));
+      return;
     }
 
-    tryLoad();
+    const callbackName =
+      "cikaCallback_"+Date.now()+"_"+
+      Math.floor(Math.random()*999999);
+
+    const script = document.createElement("script");
+
+    const query = new URLSearchParams({
+      ...params,
+      callback:callbackName
+    });
+
+    let finished = false;
+
+    const timeout = setTimeout(()=>{
+      finish();
+      reject(new Error("Server Google tidak merespons."));
+    },20000);
+
+    function finish(){
+      if(finished)return;
+      finished=true;
+      clearTimeout(timeout);
+      delete window[callbackName];
+      script.remove();
+    }
+
+    window[callbackName] = function(data){
+      finish();
+      resolve(data);
+    };
+
+    script.onerror = function(){
+      finish();
+      reject(new Error("Gagal menghubungi Google Apps Script."));
+    };
+
+    script.src =
+      GOOGLE_API_URL+"?"+query.toString();
+
+    document.body.appendChild(script);
 
   });
 
-  return libraryLoading;
 }
 
 
-/* ======================================
-   MODE IN / OUT
-====================================== */
+/* ==================================================
+   LOAD DATA
+================================================== */
 
-function setMode(type){
+async function loadStock(){
 
-  mode = type;
+  try{
 
-  document.getElementById("btnIn")
-    .classList.toggle("active",type === "IN");
+    const result = await googleRequest({
+      action:"stock"
+    });
 
-  document.getElementById("btnOut")
-    .classList.toggle("active",type === "OUT");
+    if(!result.success){
+      throw new Error(result.message||"Gagal membaca stok");
+    }
 
-}
+    products = result.products||[];
 
+    renderStock();
+    updateDashboard();
 
-/* ======================================
-   PARSE QR CIKA KIDS
+    setConnection(true,"Terhubung ke Google Spreadsheet");
 
-   Format:
-   CIKAKIDS|SKU|NAMA|WARNA|SIZE
-====================================== */
+  }catch(error){
 
-function parseQR(value){
+    console.error(error);
 
-  const text = String(value || "").trim();
-  const parts = text.split("|");
-
-  if(parts[0] === "CIKAKIDS"){
-
-    try {
-
-      return {
-        code:decodeURIComponent(parts[1] || ""),
-        name:decodeURIComponent(parts[2] || ""),
-        color:decodeURIComponent(parts[3] || ""),
-        size:decodeURIComponent(parts[4] || "")
-      };
-
-    } catch(e){}
+    setConnection(false,"Gagal terhubung ke Google Spreadsheet");
 
   }
 
-  return {
-    code:text,
-    name:"",
-    color:"",
-    size:""
-  };
+}
+
+
+async function loadHistory(){
+
+  try{
+
+    const result = await googleRequest({
+      action:"history"
+    });
+
+    if(!result.success){
+      throw new Error(result.message||"Gagal membaca riwayat");
+    }
+
+    transactions = (result.transactions||[]).reverse();
+
+    renderHistory();
+    updateDashboard();
+
+  }catch(error){
+
+    console.error(error);
+
+    $("historyTable").innerHTML =
+      `<tr><td colspan="8" class="empty">
+      Gagal memuat riwayat: ${escapeHTML(error.message)}
+      </td></tr>`;
+
+  }
 
 }
 
 
-/* ======================================
-   START CAMERA
-====================================== */
+async function refreshAll(){
 
-async function startCamera(){
+  setConnection(false,"Memperbarui data...");
 
-  stopCamera(false);
+  await Promise.all([
+    loadStock(),
+    loadHistory()
+  ]);
 
-  const video = document.getElementById("video");
-  const status = document.getElementById("cameraStatus");
-  const placeholder = document.getElementById("cameraPlaceholder");
-  const startBtn = document.getElementById("startBtn");
+}
 
-  scanLock = false;
 
-  startBtn.disabled = true;
-  startBtn.textContent = "MEMBUKA KAMERA...";
+/* ==================================================
+   DASHBOARD
+================================================== */
 
-  status.className = "status";
-  status.textContent = "Memeriksa kamera dan memuat scanner...";
+function updateDashboard(){
 
-  try {
+  const totalProducts = products.length;
 
-    /* Periksa HTTPS */
-    if(!window.isSecureContext){
+  const totalStock = products.reduce(
+    (sum,p)=>sum+Number(p.stock||0),0
+  );
+
+  const totalIn = transactions
+    .filter(t=>String(t.type).toUpperCase()==="IN")
+    .reduce((sum,t)=>sum+Number(t.qty||0),0);
+
+  const totalOut = transactions
+    .filter(t=>String(t.type).toUpperCase()==="OUT")
+    .reduce((sum,t)=>sum+Number(t.qty||0),0);
+
+  $("totalProducts").textContent =
+    numberFormat(totalProducts);
+
+  $("totalStock").textContent =
+    numberFormat(totalStock);
+
+  $("totalIn").textContent =
+    numberFormat(totalIn);
+
+  $("totalOut").textContent =
+    numberFormat(totalOut);
+
+  $("summaryIn").textContent =
+    numberFormat(totalIn);
+
+  $("summaryOut").textContent =
+    numberFormat(totalOut);
+
+}
+
+
+/* ==================================================
+   PAGE NAVIGATION
+================================================== */
+
+function showPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(el=>el.classList.remove("active"));
+
+  document.querySelectorAll(".tab")
+    .forEach(el=>el.classList.remove("active"));
+
+  $("page-"+page).classList.add("active");
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  if(page==="stock"){
+    renderStock();
+  }
+
+  if(page==="history"){
+    renderHistory();
+  }
+
+}
+
+
+/* ==================================================
+   IN / OUT MODE
+================================================== */
+
+function setMode(newMode){
+
+  mode = newMode;
+
+  $("modeIn").classList.remove("active","in");
+  $("modeOut").classList.remove("active","out");
+
+  if(mode==="IN"){
+    $("modeIn").classList.add("active","in");
+  }else{
+    $("modeOut").classList.add("active","out");
+  }
+
+  setStatus(
+    mode==="IN"
+      ? "Mode BARANG MASUK — stok akan bertambah."
+      : "Mode BARANG KELUAR — stok akan berkurang."
+  );
+
+}
+
+function setManualMode(value){
+  mode=value;
+}
+
+
+/* ==================================================
+   STOCK TABLE
+================================================== */
+
+function renderStock(){
+
+  const search =
+    ($("stockSearch")?.value||"").toLowerCase().trim();
+
+  const filtered = products.filter(p=>
+    [
+      p.sku,
+      p.name,
+      p.color,
+      p.size
+    ].join(" ").toLowerCase().includes(search)
+  );
+
+  if(!filtered.length){
+
+    $("stockTable").innerHTML =
+      `<tr><td colspan="5" class="empty">
+      ${products.length?"Barang tidak ditemukan":"Belum ada data produk"}
+      </td></tr>`;
+
+    return;
+
+  }
+
+  $("stockTable").innerHTML = filtered.map(p=>{
+
+    const stock = Number(p.stock||0);
+
+    const color = stock<=0
+      ? "#dc2626"
+      : stock<=5
+        ? "#d97706"
+        : "#15803d";
+
+    return `
+      <tr>
+        <td><b>${escapeHTML(p.sku)}</b></td>
+        <td>${escapeHTML(p.name)}</td>
+        <td>${escapeHTML(p.color)}</td>
+        <td>${escapeHTML(p.size)}</td>
+        <td>
+          <span class="stock-number" style="color:${color}">
+            ${numberFormat(stock)}
+          </span>
+        </td>
+      </tr>
+    `;
+
+  }).join("");
+
+}
+
+
+/* ==================================================
+   HISTORY TABLE
+================================================== */
+
+function formatDate(value){
+
+  if(!value)return "-";
+
+  let d = new Date(value);
+
+  if(isNaN(d.getTime())){
+    return escapeHTML(value);
+  }
+
+  return d.toLocaleString("id-ID",{
+    dateStyle:"short",
+    timeStyle:"short"
+  });
+
+}
+
+function renderHistory(){
+
+  const search =
+    ($("historySearch")?.value||"").toLowerCase().trim();
+
+  const filtered = transactions.filter(t=>
+    [
+      t.sku,
+      t.name,
+      t.color,
+      t.size,
+      t.type,
+      t.source
+    ].join(" ").toLowerCase().includes(search)
+  );
+
+  if(!filtered.length){
+
+    $("historyTable").innerHTML =
+      `<tr><td colspan="8" class="empty">
+      Belum ada transaksi
+      </td></tr>`;
+
+    return;
+
+  }
+
+  $("historyTable").innerHTML = filtered.map(t=>{
+
+    const isIn =
+      String(t.type).toUpperCase()==="IN";
+
+    return `
+      <tr>
+        <td>${formatDate(t.date)}</td>
+        <td><b>${escapeHTML(t.sku)}</b></td>
+        <td>${escapeHTML(t.name)}</td>
+        <td>${escapeHTML(t.color)}</td>
+        <td>${escapeHTML(t.size)}</td>
+        <td>
+          <span class="badge ${isIn?"badge-in":"badge-out"}">
+            ${isIn?"MASUK":"KELUAR"}
+          </span>
+        </td>
+        <td><b>${numberFormat(t.qty)}</b></td>
+        <td>${escapeHTML(t.source||"-")}</td>
+      </tr>
+    `;
+
+  }).join("");
+
+}
+
+
+/* ==================================================
+   TRANSACTION TO GOOGLE SHEETS
+================================================== */
+
+async function addRecord(product){
+
+  const sku = String(product.code||"").trim();
+
+  if(!sku){
+    alert("SKU / Barcode kosong.");
+    return;
+  }
+
+  const qty = Number(product.qty||1);
+
+  if(!Number.isInteger(qty)||qty<=0){
+    alert("Qty harus berupa angka positif.");
+    return;
+  }
+
+  setStatus("Mengirim transaksi ke Google Spreadsheet...");
+
+  try{
+
+    const response = await googleRequest({
+
+      action:"transaction",
+
+      sku:sku,
+
+      name:product.name||"",
+
+      color:product.color||"",
+
+      size:product.size||"",
+
+      type:product.type||mode,
+
+      qty:qty,
+
+      source:product.source||"CAMERA"
+
+    });
+
+    if(!response||!response.success){
 
       throw new Error(
-        "Website tidak aman. Pastikan dibuka melalui HTTPS GitHub Pages."
+        response&&response.message
+          ?response.message
+          :"Transaksi gagal"
       );
 
     }
 
-    /* Memuat library scanner */
-    const ZX = await loadZXing();
-
-    if(!ZX || !ZX.BrowserMultiFormatReader){
-
-      throw new Error("Scanner ZXing tidak tersedia.");
-
-    }
-
-    status.textContent = "Meminta izin kamera HP...";
-
-    /* Tes izin kamera belakang */
-    let testStream = await navigator.mediaDevices.getUserMedia({
-      video:{facingMode:{ideal:"environment"}},
-      audio:false
-    });
-
-    /* Kamera sudah diizinkan, cari kamera belakang */
-    let devices = await navigator.mediaDevices.enumerateDevices();
-
-    let cameras = devices.filter(d=>d.kind === "videoinput");
-
-    let backCamera = cameras.find(d=>
-      /back|rear|environment/i.test(d.label)
+    setStatus(
+      "✓ BERHASIL | "+response.name+
+      " | Stok sekarang: "+response.stock,
+      "success"
     );
 
-    let selectedCamera = backCamera || cameras[cameras.length-1];
+    $("scanResult").style.display="block";
 
-    /* Matikan stream tes agar tidak bentrok */
-    testStream.getTracks().forEach(track=>track.stop());
-    testStream = null;
+    $("scanResult").innerHTML=`
+      <b>✓ TRANSAKSI BERHASIL</b><br>
+      SKU: ${escapeHTML(response.sku)}<br>
+      Produk: ${escapeHTML(response.name)}<br>
+      Warna: ${escapeHTML(response.color)}<br>
+      Size: ${escapeHTML(response.size)}<br>
+      Transaksi:
+      ${response.type==="IN"?"BARANG MASUK":"BARANG KELUAR"}<br>
+      Qty: ${numberFormat(response.qty)}<br>
+      <b>Stok terbaru: ${numberFormat(response.stock)}</b>
+    `;
 
-    if(!selectedCamera){
+    // Ambil ulang data dari server agar semua perangkat sama
+    await Promise.all([
+      loadStock(),
+      loadHistory()
+    ]);
 
-      throw new Error("Kamera HP tidak ditemukan.");
+    return response;
 
+  }catch(error){
+
+    console.error(error);
+
+    setStatus(
+      "GAGAL: "+error.message,
+      "error"
+    );
+
+    $("scanResult").style.display="block";
+
+    $("scanResult").innerHTML=`
+      <b>✕ TRANSAKSI GAGAL</b><br>
+      ${escapeHTML(error.message)}
+    `;
+
+    alert(
+      "TRANSAKSI GAGAL!\n\n"+
+      error.message+
+      "\n\nData tidak berhasil dikirim."
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* ==================================================
+   MANUAL TRANSACTION
+================================================== */
+
+async function submitManual(){
+
+  const sku=$("manualSku").value.trim();
+  const name=$("manualName").value.trim();
+  const color=$("manualColor").value.trim();
+  const size=$("manualSize").value.trim();
+  const qty=Number($("manualQty").value);
+  const type=$("manualType").value;
+
+  if(!sku){
+    alert("SKU wajib diisi.");
+    $("manualSku").focus();
+    return;
+  }
+
+  if(type==="IN"&&!name){
+
+    alert("Nama produk wajib diisi untuk barang masuk.");
+    $("manualName").focus();
+    return;
+
+  }
+
+  if(!Number.isInteger(qty)||qty<=0){
+
+    alert("Qty harus lebih dari 0.");
+    $("manualQty").focus();
+    return;
+
+  }
+
+  $("manualStatus").textContent="Menyimpan transaksi...";
+  $("manualStatus").className="status";
+
+  const result=await addRecord({
+
+    code:sku,
+    name:name,
+    color:color,
+    size:size,
+    qty:qty,
+    type:type,
+    source:"MANUAL"
+
+  });
+
+  if(result&&result.success){
+
+    $("manualStatus").textContent=
+      "✓ Berhasil. Stok sekarang: "+result.stock;
+
+    $("manualStatus").className="status success";
+
+    $("manualSku").value="";
+    $("manualName").value="";
+    $("manualColor").value="";
+    $("manualSize").value="";
+    $("manualQty").value="1";
+
+    $("manualSku").focus();
+
+  }else{
+
+    $("manualStatus").textContent=
+      "Transaksi gagal. Silakan periksa data.";
+
+    $("manualStatus").className="status error";
+
+  }
+
+}
+
+
+/* ==================================================
+   CAMERA SCANNER
+   Native BarcodeDetector
+================================================== */
+
+async function startCamera(){
+
+  if(!navigator.mediaDevices||
+     !navigator.mediaDevices.getUserMedia){
+
+    setStatus(
+      "Browser tidak mendukung kamera. Gunakan Chrome terbaru.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(!window.BarcodeDetector){
+
+    setStatus(
+      "Scanner barcode tidak didukung browser ini. "+
+      Silakan gunakan input manual.",
+      "error"
+    );
+
+    alert(
+      "BarcodeDetector tidak tersedia di browser ini.\n"+
+      "Gunakan Google Chrome terbaru di HP Android."
+    );
+
+    return;
+
+  }
+
+  try{
+
+    stopCamera();
+
+    detector=new BarcodeDetector({
+      formats:[
+        "qr_code",
+        "ean_13",
+        "ean_8",
+        "code_128",
+        "code_39",
+        "upc_a",
+        "upc_e",
+        "codabar",
+        "itf"
+      ]
+    });
+
+    cameraStream=
+      await navigator.mediaDevices.getUserMedia({
+
+        video:{
+          facingMode:{ideal:"environment"},
+          width:{ideal:1280},
+          height:{ideal:720}
+        },
+
+        audio:false
+
+      });
+
+    $("video").srcObject=cameraStream;
+
+    $("video").style.display="block";
+    $("cameraPlaceholder").style.display="none";
+    $("scanFrame").style.display="block";
+
+    await $("video").play();
+
+    scanning=true;
+    scanBusy=false;
+
+    setStatus(
+      "Kamera aktif. Arahkan ke barcode / QR Code."
+    );
+
+    scanLoop();
+
+  }catch(error){
+
+    console.error(error);
+
+    stopCamera();
+
+    let message="Kamera gagal dibuka.";
+
+    if(error.name==="NotAllowedError"){
+      message="Izin kamera ditolak. Izinkan kamera di pengaturan browser.";
     }
 
-    status.textContent = "Kamera ditemukan. Mengaktifkan scanner...";
+    if(error.name==="NotFoundError"){
+      message="Kamera tidak ditemukan pada perangkat.";
+    }
 
-    /* Jalankan ZXing */
-    reader = new ZX.BrowserMultiFormatReader();
+    if(error.name==="NotReadableError"){
+      message="Kamera sedang digunakan aplikasi lain.";
+    }
 
-    placeholder.style.display = "none";
+    setStatus(message,"error");
 
-    controls = await reader.decodeFromVideoDevice(
-      selectedCamera.deviceId,
-      video,
-      (result,error)=>{
+    alert(message);
 
-        if(result){
+  }
 
-          const value = result.getText();
-          const now = Date.now();
+}
 
-          /* Anti scan berulang */
+
+function stopCamera(){
+
+  scanning=false;
+
+  scanBusy=false;
+
+  if(cameraStream){
+
+    cameraStream.getTracks().forEach(track=>{
+      track.stop();
+    });
+
+    cameraStream=null;
+
+  }
+
+  $("video").pause();
+
+  $("video").srcObject=null;
+
+  $("video").style.display="none";
+
+  $("cameraPlaceholder").style.display="block";
+
+  $("scanFrame").style.display="none";
+
+  setStatus("Kamera dihentikan.");
+
+}
+
+
+/* CAMERA DETECTION LOOP */
+
+async function scanLoop(){
+
+  if(!scanning)return;
+
+  const video=$("video");
+
+  if(
+    video.readyState>=2 &&
+    detector &&
+    !scanBusy
+  ){
+
+    scanBusy=true;
+
+    try{
+
+      const codes=await detector.detect(video);
+
+      if(codes&&codes.length){
+
+        const code=String(codes[0].rawValue||"").trim();
+
+        if(code){
+
+          const now=Date.now();
+
+          // Anti double scan dalam 1.8 detik
           if(
-            value === lastCode &&
-            now-lastScanTime < 1500
+            code!==lastScannedCode ||
+            now-lastScanTime>1800
           ){
-            return;
+
+            lastScannedCode=code;
+            lastScanTime=now;
+
+            await processScan(code);
+
           }
-
-          lastCode = value;
-          lastScanTime = now;
-
-          processScan(value);
 
         }
 
       }
-    );
 
-    status.className = "status success";
-    status.textContent =
-      "KAMERA AKTIF ✓ Arahkan barcode ke kamera.";
+    }catch(error){
 
-  } catch(error){
+      console.error("Scan error:",error);
 
-    console.error("Camera error:",error);
+    }
 
-    status.className = "status error";
-    status.textContent = "Gagal membuka kamera: " + error.message;
+    scanBusy=false;
 
-    placeholder.style.display = "block";
+  }
 
-    alert(
-      "KAMERA GAGAL DIBUKA\n\n"+
-      error.message+
-      "\n\nPeriksa izin kamera Chrome dan koneksi internet."
-    );
+  if(scanning){
 
-    stopCamera(false);
-
-  } finally{
-
-    startBtn.disabled = false;
-    startBtn.textContent = "◎ BUKA KAMERA";
+    setTimeout(scanLoop,250);
 
   }
 
 }
 
 
-/* ======================================
-   STOP CAMERA
-====================================== */
-
-function stopCamera(showMessage=true){
-
-  try{
-
-    if(controls && controls.stop){
-      controls.stop();
-    }
-
-  }catch(e){}
-
-  try{
-
-    if(reader && reader.reset){
-      reader.reset();
-    }
-
-  }catch(e){}
-
-  controls = null;
-  reader = null;
-
-  const video = document.getElementById("video");
-
-  try{
-
-    if(video.srcObject){
-      video.srcObject.getTracks().forEach(track=>track.stop());
-      video.srcObject = null;
-    }
-
-  }catch(e){}
-
-  video.pause();
-
-  document.getElementById("cameraPlaceholder").style.display="block";
-
-  if(showMessage){
-
-    const status = document.getElementById("cameraStatus");
-
-    status.className = "status";
-    status.textContent = "Kamera dihentikan.";
-
-  }
-
-}
-
-
-/* ======================================
+/* ==================================================
    PROCESS SCAN
-====================================== */
+================================================== */
 
-function processScan(value){
+async function processScan(code){
 
-  const product = parseQR(value);
+  setStatus(
+    "Barcode terdeteksi: "+code+
+    " | Mengirim transaksi..."
+  );
 
-  addRecord({
-    code:product.code,
-    name:product.name,
-    color:product.color,
-    size:product.size,
+  $("manualSku").value=code;
+
+  // Cari data produk dari master lokal hasil server
+  const found=products.find(p=>
+    String(p.sku).trim()===code
+  );
+
+  const result=await addRecord({
+
+    code:code,
+
+    name:found?found.name:"",
+
+    color:found?found.color:"",
+
+    size:found?found.size:"",
+
     qty:1,
-    source:"CAMERA"
-  });
-
-  const result = document.getElementById("scanResult");
-
-  result.style.display = "block";
-
-  result.innerHTML =
-    "<b>✓ BARCODE BERHASIL DIPINDAI</b><br>"+
-    "SKU: "+escapeHTML(product.code)+"<br>"+
-    "Mode: "+(mode==="IN"?"Barang Masuk":"Barang Keluar")+"<br>"+
-    "Jumlah: 1";
-
-}
-
-
-/* ======================================
-   MANUAL INPUT
-====================================== */
-
-function addManual(){
-
-  const code = document.getElementById("code").value.trim();
-
-  const name = document.getElementById("productName").value.trim();
-
-  const color = document.getElementById("color").value.trim();
-
-  const size = document.getElementById("size").value.trim();
-
-  const qty = Number(document.getElementById("qty").value);
-
-  if(!code){
-
-    alert("SKU atau barcode harus diisi.");
-    return;
-
-  }
-
-  if(!Number.isInteger(qty) || qty<=0){
-
-    alert("Jumlah harus lebih dari 0.");
-    return;
-
-  }
-
-  const product = parseQR(code);
-
-  addRecord({
-    code:product.code,
-    name:name || product.name,
-    color:color || product.color,
-    size:size || product.size,
-    qty:qty,
-    source:"MANUAL"
-  });
-
-  document.getElementById("code").value="";
-  document.getElementById("productName").value="";
-  document.getElementById("color").value="";
-  document.getElementById("size").value="";
-  document.getElementById("qty").value="1";
-
-}
-
-
-/* ======================================
-   ADD TRANSACTION
-====================================== */
-
-function addRecord(product){
-
-  if(!product.code){
-    return;
-  }
-
-  records.unshift({
-
-    id:Date.now().toString()+Math.random().toString(16).slice(2),
-
-    date:new Date().toISOString(),
 
     type:mode,
 
-    code:product.code,
-
-    name:product.name || "",
-
-    color:product.color || "",
-
-    size:product.size || "",
-
-    qty:Number(product.qty) || 1,
-
-    source:product.source || "CAMERA"
+    source:"CAMERA"
 
   });
 
-  saveLocal();
-  render();
+  if(result&&result.success){
 
-}
-
-
-/* ======================================
-   SAVE LOCAL STORAGE
-====================================== */
-
-function saveLocal(){
-
-  try{
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(records)
-    );
-
-  }catch(e){
-
-    alert("Penyimpanan HP gagal. Memori mungkin penuh.");
+    // Bersihkan hasil agar barcode sama dapat scan kembali
+    setTimeout(()=>{
+      lastScannedCode="";
+    },1800);
 
   }
 
 }
 
 
-/* ======================================
-   RENDER HISTORY
-====================================== */
-
-function render(){
-
-  const tbody = document.getElementById("history");
-
-  if(!records.length){
-
-    tbody.innerHTML =
-      '<tr><td colspan="7" class="empty">'+
-      'Belum ada transaksi.'+
-      '</td></tr>';
-
-  }else{
-
-    tbody.innerHTML = records.map(r=>`
-
-      <tr>
-
-        <td>${escapeHTML(new Date(r.date).toLocaleString("id-ID"))}</td>
-
-        <td>
-          <span class="badge ${r.type==="IN"?"badge-in":"badge-out"}">
-            ${r.type}
-          </span>
-        </td>
-
-        <td>${escapeHTML(r.code)}</td>
-
-        <td>${escapeHTML(r.name || "-")}</td>
-
-        <td>${escapeHTML((r.color||"-")+" / "+(r.size||"-"))}</td>
-
-        <td>${Number(r.qty)||0}</td>
-
-        <td>
-          <button class="delete"
-            onclick="deleteRecord('${r.id}')">
-            Hapus
-          </button>
-        </td>
-
-      </tr>
-
-    `).join("");
-
-  }
-
-  const totalIn = records
-    .filter(r=>r.type==="IN")
-    .reduce((total,r)=>total+(Number(r.qty)||0),0);
-
-  const totalOut = records
-    .filter(r=>r.type==="OUT")
-    .reduce((total,r)=>total+(Number(r.qty)||0),0);
-
-  document.getElementById("totalIn").textContent=totalIn;
-  document.getElementById("totalOut").textContent=totalOut;
-
-}
-
-
-/* ======================================
-   DELETE TRANSACTION
-====================================== */
-
-function deleteRecord(id){
-
-  if(!confirm("Hapus transaksi ini?")){
-    return;
-  }
-
-  records=records.filter(r=>String(r.id)!==String(id));
-
-  saveLocal();
-  render();
-
-}
-
-
-/* ======================================
-   CLEAR HISTORY
-====================================== */
-
-function clearHistory(){
-
-  if(!confirm("Hapus semua riwayat transaksi di HP ini?")){
-    return;
-  }
-
-  records=[];
-  saveLocal();
-  render();
-
-}
-
-
-/* ======================================
-   DOWNLOAD CSV
-====================================== */
-
-function downloadCSV(){
-
-  if(!records.length){
-
-    alert("Belum ada transaksi.");
-    return;
-
-  }
-
-  const headers=[
-    "Tanggal",
-    "Jenis",
-    "SKU",
-    "Nama Produk",
-    "Warna",
-    "Size",
-    "Jumlah",
-    "Sumber"
-  ];
-
-  const rows=records.map(r=>[
-    r.date,
-    r.type,
-    r.code,
-    r.name,
-    r.color,
-    r.size,
-    r.qty,
-    r.source
-  ]);
-
-  const csv=[headers,...rows].map(row=>
-    row.map(v=>
-      '"'+String(v??"").replace(/"/g,'""')+'"'
-    ).join(";")
-  ).join("\r\n");
-
-  const blob=new Blob(
-    ["\ufeff"+csv],
-    {type:"text/csv;charset=utf-8"}
-  );
-
-  const url=URL.createObjectURL(blob);
-
-  const a=document.createElement("a");
-
-  a.href=url;
-  a.download="Cika-Kids-Stock-Scan.csv";
-
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-
-}
-
-
-/* ======================================
-   ESCAPE HTML
-====================================== */
-
-function escapeHTML(value){
-
-  return String(value??"").replace(/[&<>"']/g,ch=>({
-
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-
-  }[ch]));
-
-}
-
-
-/* ======================================
-   PWA INSTALL
-====================================== */
+/* ==================================================
+   INSTALL PWA
+================================================== */
 
 window.addEventListener("beforeinstallprompt",event=>{
 
   event.preventDefault();
 
-  deferredInstallPrompt=event;
+  installPrompt=event;
+
+  $("installBtn").classList.remove("hidden");
 
 });
 
 
 async function installApp(){
 
-  if(deferredInstallPrompt){
+  if(installPrompt){
 
-    deferredInstallPrompt.prompt();
+    installPrompt.prompt();
 
-    const choice=await deferredInstallPrompt.userChoice;
+    const result=await installPrompt.userChoice;
 
-    if(choice.outcome==="accepted"){
-      alert("Cika Kids Store berhasil dipasang!");
+    installPrompt=null;
+
+    if(result.outcome==="accepted"){
+
+      $("installBtn").textContent="✓ APLIKASI TERPASANG";
+
     }
-
-    deferredInstallPrompt=null;
-    return;
-
-  }
-
-  if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
-
-    alert(
-      "INSTALL IPHONE:\n\n"+
-      "1. Buka website melalui Safari.\n"+
-      "2. Tekan Share.\n"+
-      "3. Pilih Add to Home Screen.\n"+
-      "4. Tekan Add."
-    );
 
   }else{
 
     alert(
-      "INSTALL ANDROID:\n\n"+
-      "1. Buka website melalui Chrome.\n"+
-      "2. Tekan menu titik tiga.\n"+
-      "3. Pilih Install App atau Tambahkan ke layar utama."
+      "Untuk memasang aplikasi:\n\n"+
+      "1. Buka website melalui Google Chrome.\n"+
+      "2. Tekan menu ⋮.\n"+
+      "3. Pilih Tambahkan ke layar utama / Install aplikasi."
     );
 
   }
@@ -1218,27 +1605,17 @@ async function installApp(){
 }
 
 
-window.addEventListener("appinstalled",()=>{
-
-  alert("Aplikasi Cika Kids Store berhasil diinstal!");
-
-});
-
-
-/* ======================================
+/* ==================================================
    SERVICE WORKER
-====================================== */
+================================================== */
 
 if("serviceWorker" in navigator){
 
   window.addEventListener("load",()=>{
 
     navigator.serviceWorker.register("./sw.js")
-      .then(registration=>{
-        console.log("Service Worker aktif",registration);
-      })
       .catch(error=>{
-        console.warn("Service Worker gagal",error);
+        console.log("Service Worker:",error);
       });
 
   });
@@ -1246,20 +1623,15 @@ if("serviceWorker" in navigator){
 }
 
 
-/* ======================================
-   PAGE CLEANUP
-====================================== */
+/* ==================================================
+   INITIALIZATION
+================================================== */
 
-window.addEventListener("pagehide",()=>{
-  stopCamera(false);
+document.addEventListener("DOMContentLoaded",()=>{
+
+  refreshAll();
+
 });
-
-
-/* ======================================
-   INITIALIZE
-====================================== */
-
-render();
 
 </script>
 
