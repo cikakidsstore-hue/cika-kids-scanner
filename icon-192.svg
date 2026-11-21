@@ -1,0 +1,17 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+ width="192" height="192" viewBox="0 0 512 512">
+ <rect width="512" height="512" rx="100" fill="#11100e"/>
+ <rect x="22" y="22" width="468" height="468"
+ rx="85" fill="none" stroke="#d2aa55" stroke-width="12"/>
+ <path d="M165 126 L190 78 L225 108 L256 54
+ L287 108 L322 78 L347 126 L325 164
+ L187 164 Z" fill="#d2aa55"/>
+ <text x="256" y="335" text-anchor="middle"
+ font-family="Georgia,serif" font-size="190"
+ font-weight="bold" fill="#e5c16e">CK</text>
+ <path d="M130 375 H382" stroke="#d2aa55" stroke-width="7"/>
+ <text x="256" y="417" text-anchor="middle"
+ font-family="Arial" font-size="28"
+ letter-spacing="7" fill="#e5c16e">STORE</text>
+</svg>
